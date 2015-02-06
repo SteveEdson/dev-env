@@ -1,0 +1,8 @@
+---
+- hosts: default
+  roles:
+    - base
+    - php5-cli
+    - nginx
+  vars_files:
+    - vars/common.yml

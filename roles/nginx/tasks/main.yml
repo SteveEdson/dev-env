@@ -1,0 +1,16 @@
+  - name: ensure nginx repository is present
+    apt_repository: repo='ppa:nginx/stable' state=present
+
+  - name: ensure nginx is at the latest version
+    apt: name=nginx state=latest update_cache=yes
+    notify:
+    - restart nginx
+
+  - name: ensure nginx is running
+    service: name=nginx state=started
+
+  - name: Change default nginx site
+    template: src=default.tpl dest=/etc/nginx/sites-available/default
+    notify:
+      - restart nginx
+      - restart php5-fpm

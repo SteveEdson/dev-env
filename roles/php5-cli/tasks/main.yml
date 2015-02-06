@@ -1,0 +1,10 @@
+  - name: Install php5-cli (for command-line php)
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - php5-cli
+
+  - name: Ensure latest PHP is installed
+    apt: name=php5-fpm state=latest
+
+  - name: Ensure php-fpm is running
+    service: name=php5-fpm state=started
