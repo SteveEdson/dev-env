@@ -1,0 +1,30 @@
+  - name: Install php5-cli (for command-line php)
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - php5-cli
+
+  - name: Ensure latest PHP is up to date
+    apt: name=php5-fpm state=latest
+
+  - name: Ensure php-fpm is running
+    service: name=php5-fpm state=started
+
+  - name: Install Composer into the current directory.
+    shell: >
+      curl -sS https://getcomposer.org/installer | php
+      creates={{ composer_path }}
+
+  - name: Move Composer into globally-accessible location.
+    shell: >
+      mv composer.phar {{ composer_path }}
+      creates={{ composer_path }}
+
+  - name: Update Composer to latest version (if configured).
+    shell: >
+      php {{ composer_path }} self-update
+    register: composer_update
+    changed_when: "'Updating to version' in composer_update.stdout"
+    when: composer_keep_updated
+
+  - name: Ensure composer packages are up to date (using composer.lock)
+    composer: command=install working_dir={{ doc_root }}

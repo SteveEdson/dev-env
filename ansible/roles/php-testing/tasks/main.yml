@@ -1,0 +1,3 @@
+---
+- name: ensure phpunit is up to date
+  apt: name=phpunit state=latest

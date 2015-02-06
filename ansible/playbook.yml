@@ -3,6 +3,7 @@
   roles:
     - base
     - php5-cli
+    - php-testing
     - nginx
   vars_files:
     - vars/common.yml
