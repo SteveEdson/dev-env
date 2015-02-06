@@ -1,3 +1,18 @@
 ---
-- name: ensure phpunit is up to date
-  apt: name=phpunit state=latest
+## todo: Only download when file doesn't exist, or is out of date
+#- name: ensure phpunit is up to date
+#  shell: >
+#    wget https://phar.phpunit.de/phpunit.phar
+#
+## todo: only exec when file does not have correct permissions
+#- name: Add execute permissions to phpunit
+#  shell: >
+#    chmod +x phpunit.phar
+#
+## todo: only exec when file is updated, or permissions change, or not exists
+#- name: Move phpunit to path
+#  shell: >
+#    sudo mv phpunit.phar /usr/local/bin/phpunit
+
+- name: Ensure phpunit is up to date
+  composer: command='update' working_dir={{ doc_root }}
