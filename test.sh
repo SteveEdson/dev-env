@@ -1,3 +1,3 @@
 #!/bin/sh
 
-phpunit --bootstrap vendor/autoload.php test/**
+./vendor/bin/phpunit --colors --coverage-html=./coverage/ --bootstrap ./vendor/autoload.php ./test/**
