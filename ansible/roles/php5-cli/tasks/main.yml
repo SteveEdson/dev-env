@@ -2,9 +2,12 @@
     apt: pkg={{ item }} state=latest
     with_items:
       - php5-cli
+      - php5-mcrypt
+      - php5-fpm
 
-  - name: Ensure latest PHP is up to date
-    apt: name=php5-fpm state=latest
+  - name: Enable mcrypt
+    shell: >
+      php5enmod mcrypt
 
   - name: Ensure php-fpm is running
     service: name=php5-fpm state=started
