@@ -13,6 +13,7 @@
     with_items:
       - mcrypt
       - mysql
+    notify: restart php5-fpm
 
   - name: Ensure php-fpm is running
     service: name=php5-fpm state=started
