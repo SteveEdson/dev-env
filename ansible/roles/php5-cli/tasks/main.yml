@@ -1,13 +1,18 @@
-  - name: Install php5-cli (for command-line php)
+  - name: Install php5
     apt: pkg={{ item }} state=latest
     with_items:
       - php5-cli
       - php5-mcrypt
       - php5-fpm
+      - php5-mysql
+    notify: restart php5-fpm
 
-  - name: Enable mcrypt
+  - name: Enable extensions
     shell: >
-      php5enmod mcrypt
+      php5enmod {{ item }}
+    with_items:
+      - mcrypt
+      - mysql
 
   - name: Ensure php-fpm is running
     service: name=php5-fpm state=started
