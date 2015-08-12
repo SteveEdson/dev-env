@@ -1,8 +1,9 @@
+  - name: Update apt
+    apt: update_cache=yes
+    sudo: yes  
+
   - name: ensure software properties common is at latest version
     apt: name=software-properties-common state=latest
 
   - name: ensure python properties common is at latest version
     apt: name=python-software-properties state=latest
-
-  - name: Update apt
-    apt: update_cache=yes
